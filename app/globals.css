@@ -1,26 +1,96 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #050505;
+  --foreground: #f4f4f5;
+  
+  --color-surface-base: #050505;
+  --color-surface-graphite: #111111;
+  --color-surface-charcoal: #1a1a1a;
+  
+  --color-accent-cyan: #22d3ee;
+  --color-accent-violet: #818cf8;
+  --color-accent-blue: #3b82f6;
+
+  --color-text-primary: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-inter), "Inter", sans-serif;
+  
+  --color-surface-base: var(--color-surface-base);
+  --color-surface-graphite: var(--color-surface-graphite);
+  --color-surface-charcoal: var(--color-surface-charcoal);
+  
+  --color-accent-cyan: var(--color-accent-cyan);
+  --color-accent-violet: var(--color-accent-violet);
+  --color-accent-blue: var(--color-accent-blue);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.2);
+  color: #22d3ee;
+}
+
+/* ── Custom Scrollbar ─────────────────────────── */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Graph Readability ────────────────────────── */
+/* Ensures node labels remain crisp on projectors and low-contrast displays */
+svg text {
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Smooth focus transitions ─────────────────── */
+/* Global transition baseline for interactive elements */
+button, [role="button"] {
+  transition: transform 0.2s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+/* ── Projector-safe label rendering ───────────── */
+/* Slight text shadow on critical graph labels for ambient contrast */
+.graph-label-shadow {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Keyframe: subtle pulse for live indicators ── */
+@keyframes intelligence-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+.intelligence-pulse {
+  animation: intelligence-pulse 3s ease-in-out infinite;
 }
